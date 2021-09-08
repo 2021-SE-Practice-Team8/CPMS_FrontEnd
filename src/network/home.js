@@ -81,12 +81,31 @@ export function parkadd(data) {
 
 
 
+export function logfind() {
+    return request({
+        url: '/log/find',
+        method: 'POST'
+    })
+}
 
 
+export function logenter(data) {
+    console.log(data);
+    return request({
+        url: '/log/enter',
+        method: 'POST',
+        data: data
+    })
+}
 
-
-
-
+export function logleave(data) {
+    console.log(data);
+    return request({
+        url: '/log/leave',
+        method: 'POST',
+        data: data
+    })
+}
 
 
 

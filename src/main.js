@@ -7,7 +7,7 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import axios from 'axios'
 
-import { send, carsend, parkfind } from './network/home'
+import { send, carsend, logfind, logenter, logleave } from './network/home'
 
 Vue.prototype.$bus = new Vue()
 Vue.use(Antd)
@@ -39,7 +39,19 @@ new Vue({
 //     console.log('err')
 // })
 
-// parkfind().then(res => {
+logfind().then(res => {
+    console.log('res', res);
+}).catch(err => {
+    console.log('err')
+})
+
+// logenter({ id_num: "A123" }).then(res => {
+//     console.log('res', res);
+// }).catch(err => {
+//     console.log('err')
+// })
+
+// logleave({ id_num: "A123" }).then(res => {
 //     console.log('res', res);
 // }).catch(err => {
 //     console.log('err')

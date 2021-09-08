@@ -42,7 +42,7 @@ export default {
           "sub5":'/parkmanage',
       },
       now:'/login',
-      isActive:true
+      isActive:false
     }
   },
   created(){

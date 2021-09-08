@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
       <a-form
     id="components-form-demo-normal-login"
     :form="form"
@@ -95,6 +95,10 @@ export default {
 </script>
 
 <style>
+.content{
+        position:relative;
+        width: 50%;
+    }
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
 }

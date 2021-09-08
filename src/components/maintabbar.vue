@@ -25,7 +25,7 @@
         <a-layout-sider width="20%" style="background: #fff">
           <tabbar ref="tabbar"></tabbar>
         </a-layout-sider>
-        <a-layout-content :style="{  left:'30%'  ,   padding: '0 10px', minHeight: 'calc(100vh - 180px)' }">
+        <a-layout-content :style="{  left:'30%'  ,   padding: '0 10px', minHeight: 'calc(100vh)' }">
           <div class="tab">
             <router-view/>
           </div>

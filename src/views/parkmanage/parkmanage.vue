@@ -5,7 +5,7 @@
     </a-button>
     <a-table :columns="columns" :data-source="data" bordered>
       <template
-        v-for="col in ['id_num','is_fixed', 'is_occupied',num]"
+        v-for="col in ['id_num',num,'is_fixed','is_occupied']"
         :slot="col"
         slot-scope="text, record"
       >
@@ -63,7 +63,8 @@ export default {
             ju:[],
             k:0,
             num:'',
-            n:false
+            n:false,
+            a:''
         }
         
     },
@@ -91,6 +92,29 @@ export default {
       
     },
     updated(){
+      // this.data=[];
+      // this.ju=[];
+      // parkfind().then(res=>{
+      //     this.ju=[...res];
+      //     for (let item of this.ju) {
+      //       this.data.push({
+      //         key: this.k.toString(),
+      //         id_num: item.id_num,
+      //         is_fixed: item.is_fixed,
+      //         is_occupied: item.is_occupied,
+      //         park_id: item.park_id,
+      //       });
+      //       this.cacheData.push({
+      //         key: this.k.toString(),
+      //         id_num: item.id_num,
+      //         is_fixed: item.is_fixed,
+      //         is_occupied: item.is_occupied,
+      //         park_id: item.park_id,
+      //       });
+      //       this.k++;
+      //     }
+      //   })
+      
     },
     methods:{
         handleChange(value, key, column) {
@@ -112,7 +136,7 @@ export default {
           target.editable = true;
           this.data = newData;
           // console.log("ok");
-          if(target.id_num==='') 
+          if(target.park_id==='') 
           {
             this.num='park_id',
             this.n=true
@@ -142,7 +166,10 @@ export default {
         let senddata={};
         senddata.id_num=target.id_num
         senddata.is_fixed=target.is_fixed;
-        senddata.is_occupied=target.is_occupied;
+        if(senddata.id_num)
+          senddata.is_occupied=true;
+        else
+          senddata.is_occupied=false;
         senddata.park_id=target.park_id;
         console.log('senddata',senddata);
         let sd={
@@ -218,6 +245,12 @@ export default {
 
   const columns = [
     {
+      title: 'park_id',
+      dataIndex: 'park_id',
+      width: '40%',
+      scopedSlots: { customRender: 'park_id' },
+    },
+    {
       title: 'id_num',
       dataIndex: 'id_num',
       width: '25%',
@@ -235,12 +268,7 @@ export default {
       width: '40%',
       scopedSlots: { customRender: 'is_occupied' },
     },
-    {
-      title: 'park_id',
-      dataIndex: 'park_id',
-      width: '40%',
-      scopedSlots: { customRender: 'park_id' },
-    },
+    
     {
       title: 'operation',
       dataIndex: 'operation',

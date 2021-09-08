@@ -1,126 +1,95 @@
 <template>
   <div class="content">
       <!-- <h2>4</h2> -->
-    <list :shuju="shuju" >
-        <!-- <button slot="editbtn">edit</button>
-        <button slot="delbtn">del</button> -->
-    </list>
+    <!-- <list :shuju="shuju" >
+    </list> -->
+
+    <a-table :columns="columns" :data-source="data" bordered>
+    <template slot="name" slot-scope="text">
+      <a>{{ text }}</a>
+    </template>
+  </a-table>
+
+
+
   </div>
 </template>
 
 <script>
 import list from './list.vue'
+import {logfind} from '../../network/home'
+const renderContent = (value, row, index) => {
+  const obj = {
+    children: value,
+    attrs: {},
+  };
+  return obj;
+};
 export default {
     name:'log',
     components:{
         list
     },
-    data(){
-        return{
-            shuju:[
-              {
-                key: '1',
-                ID_num: '陕A10082',
-                log:[
-                        {
-                        info: '东门',
-                        in: 202109011212,
-                        out: 202109011213,
-                        },
-                        {
-                        info: '北门',
-                        in: 202109011248,
-                        out: 202109011300,
-                        },
-                        {
-                        info: '西门',
-                        in: 202109011350,
-                        out: 202109011400,
-                        },
-                    ]
-                
-              },
-              {
-                key: '1',
-                ID_num: '陕A10081',
-                log:[
-                        {
-                        info: '东门',
-                        in: 202109011212,
-                        out: 202109011213,
-                        },
-                        {
-                        info: '东门',
-                        in: 202109011248,
-                        out: 202109011300,
-                        },
-                        {
-                        info: '西门',
-                        in: 202109011350,
-                        out: 202109011400,
-                        },
-                    ]
-                
-              },
-              {
-                key: '1',
-                ID_num: '陕A10082',
-                log:[
-                        {
-                        info: '东门',
-                        in: 202109011212,
-                        out: 202109011213,
-                        },
-                        {
-                        info: '西门',
-                        in: 202109011248,
-                        out: 202109011300,
-                        },
-                        {
-                        info: '东门',
-                        in: 202109011350,
-                        out: 202109011400,
-                        },
-                    ]
-                
-              },
-              {
-                key: '1',
-                ID_num: '陕A10082',
-                log:[
-                        {
-                        info: 'b楼东100m',
-                        in: 202109011212,
-                        out: 202109011213,
-                        },
-                        {
-                        info: '东门',
-                        in: 202109011248,
-                        out: 202109011300,
-                        },
-                        {
-                        info: '西门',
-                        in: 202109011350,
-                        out: 202109011400,
-                        },
-                    ]
-                
-              },
-            ]
-        }
-        
+    data() {
+        const columns = [
+        {
+            title: 'id_num',
+            dataIndex: 'id_num',
+            customRender: renderContent
+        },
+        {
+            title: 'time_in',
+            dataIndex: 'time_in',
+            customRender: renderContent
+        },
+        {
+            title: 'time_out',
+            dataIndex: 'time_out',
+            customRender: renderContent,
+        },
+        ];
+        return {
+            data:[],
+            cache:[],
+            columns,
+            k:0,
+            ju:[]
+        };
     },
     methods:{
-        // edit(index){
-        //     console.log(index);
-        //     this.shuju[index].tel+=100
-        // },
-        // del(index){
-        //     console.log(index);
-        //     this.shuju[index].tel-=100
-        // }
+        
+    },
+    created(){
+        logfind().then(res=>{
+        console.log('res',res);
+        this.ju=[...res];
+        let i=0;
+        for (let item of this.ju) {
+            console.log('ju',this.ju);
+            console.log('item',item);
+            console.log('item.log_info',item.log_info);
+            for(let it of item.log_info)
+            {
+                console.log('it',it);
+                // this.cache.push(it.time_in)
+                // this.cache.push(it.time_out)
+                this.data.push({
+                    key: this.k.toString(),
+                    id_num: item.id_num,
+                    time_in:it.time_in,
+                    time_out:it.time_out
+                });
+
+            }
+          
+          this.k++;
+        }
+        })
+        console.log('data',this.data);
     }
 }
+
+
 </script>
 
 <style scoped>
