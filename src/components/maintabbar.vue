@@ -16,7 +16,7 @@
           八
           组
         
-        <a-button class="btn" @click="loginClick"><a-icon type="login" />login</a-button>
+        <a-button class="btn" @click="loginClick" id="btn_login" :disabled=login_is_dis><a-icon type="login" />login</a-button>
       </a-menu>
     </a-layout-header>
     
@@ -54,8 +54,14 @@ export default {
     },
     data(){
         return{
-            mm:86
+            mm:86,
+            login_is_dis: false
         }
+    },
+    created(){
+      this.$bus.$on('login_dis',()=>{
+          this.login_is_dis=true
+        });
     },
     methods:{
       loginClick(){

@@ -10,7 +10,7 @@
                 </a-list-item>
             </a-list>
       <hr/>
-      <h3>固定车位</h3>
+      <h3>普通车位</h3>
             <a-list :grid="{ gutter: 16, column: 4 }" :data-source="data2" >
                 <a-list-item slot="renderItem" slot-scope="item">
                     <a-card :title="item.title"  :class="{occupy: item.occupy ,nonoccupy:!item.occupy}" class="card">

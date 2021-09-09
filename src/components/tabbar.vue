@@ -1,8 +1,6 @@
 <template>
   <div class="content">
     <a-menu mode="inline" :open-keys="openKeys" @openChange="onOpenChange" class="menu" >
-      
-      
       <a-sub-menu key="sub1" @titleClick="itemClick('sub1')">
         <span slot="title"><a-icon type="alert" /><span >模拟</span></span>
       </a-sub-menu>
@@ -42,14 +40,14 @@ export default {
           "sub5":'/parkmanage',
       },
       now:'/login',
-      isActive:false
+      isActive:true
     }
   },
   created(){
     this.$bus.$on('open',()=>{
-            //  alert('123')
-             this.isActive=false
-            //  this.$router.replace
+          this.isActive=false
+          //  this.$router.replace
+          //sessionStorage.setItem('isActive', false);          
         });
   },
   methods: {

@@ -1,9 +1,5 @@
 <template>
   <div class="content">
-      <!-- <h2>4</h2> -->
-    <!-- <list :shuju="shuju" >
-    </list> -->
-
     <a-table :columns="columns" :data-source="data" bordered>
     <template slot="name" slot-scope="text">
       <a>{{ text }}</a>
@@ -16,7 +12,6 @@
 </template>
 
 <script>
-import list from './list.vue'
 import {logfind} from '../../network/home'
 const renderContent = (value, row, index) => {
   const obj = {
@@ -27,9 +22,6 @@ const renderContent = (value, row, index) => {
 };
 export default {
     name:'log',
-    components:{
-        list
-    },
     data() {
         const columns = [
         {

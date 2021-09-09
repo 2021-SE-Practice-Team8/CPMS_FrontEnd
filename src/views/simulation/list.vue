@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-statistic title="专用车位" :precision="2" :value="zhuan" style="margin-right: 50px" />
-    <a-statistic title="普通车位" :precision="2" :value="pu" />
+    <a-statistic title="剩余专用车位" :value="zhuan" style="margin-right: 50px" />
+    <a-statistic title="剩余普通车位" :value="pu" />
   </div>
 </template>
 <script>

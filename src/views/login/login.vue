@@ -30,17 +30,6 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-checkbox
-        v-decorator="[
-          'remember',
-          {
-            valuePropName: 'checked',
-            initialValue: true,
-          },
-        ]"
-      >
-        Remember me
-      </a-checkbox>
       <a-button type="primary" html-type="submit" class="login-form-button">
         Log in
       </a-button>
@@ -61,10 +50,6 @@ export default {
         e.preventDefault();
         this.form.validateFields((err, values) => {
             if (!err) {
-            // console.log('Received values of form: ', values);
-            // if(values.userName==='tts'&& values.password==='123')
-            //     // alert('')
-            //     this.open()
             let data={
               username: '',
               password: ''
@@ -73,20 +58,17 @@ export default {
             data.password=values.password
             console.log(data)
             login(data).then(res=>{
-              // console.log(res);
-              this.open()
+              if(res.message=="Login OK!"){
+                this.$bus.$emit('open')
+                this.$bus.$emit("login_dis")
+                this.$router.replace("/simulation")
+              }else{
+                alert("Login Error")
+              }
             })
-            // send(values).then((res) => {
-            //       console.log(res);
-            //       if(res.data.code==0)
-            //         {this.open()}
-            //       })
             }
         });
         },
-        open(){
-            this.$bus.$emit('open')
-        }
     },
     created(){
         

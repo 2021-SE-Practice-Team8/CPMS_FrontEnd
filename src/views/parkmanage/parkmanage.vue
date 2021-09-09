@@ -5,7 +5,7 @@
     </a-button>
     <a-table :columns="columns" :data-source="data" bordered>
       <template
-        v-for="col in ['id_num',num,'is_fixed','is_occupied']"
+        v-for="col in [num,'is_fixed','is_occupied']"
         :slot="col"
         slot-scope="text, record"
       >
@@ -91,31 +91,6 @@ export default {
   })
       
     },
-    updated(){
-      // this.data=[];
-      // this.ju=[];
-      // parkfind().then(res=>{
-      //     this.ju=[...res];
-      //     for (let item of this.ju) {
-      //       this.data.push({
-      //         key: this.k.toString(),
-      //         id_num: item.id_num,
-      //         is_fixed: item.is_fixed,
-      //         is_occupied: item.is_occupied,
-      //         park_id: item.park_id,
-      //       });
-      //       this.cacheData.push({
-      //         key: this.k.toString(),
-      //         id_num: item.id_num,
-      //         is_fixed: item.is_fixed,
-      //         is_occupied: item.is_occupied,
-      //         park_id: item.park_id,
-      //       });
-      //       this.k++;
-      //     }
-      //   })
-      
-    },
     methods:{
         handleChange(value, key, column) {
         const newData = [...this.data];
@@ -164,13 +139,24 @@ export default {
         // console.log('senddata',senddata);
 
         let senddata={};
-        senddata.id_num=target.id_num
+        senddata.id_num=null
         senddata.is_fixed=target.is_fixed;
-        if(senddata.id_num)
-          senddata.is_occupied=true;
-        else
-          senddata.is_occupied=false;
+        senddata.is_occupied=target.is_occupied;
         senddata.park_id=target.park_id;
+
+        if(senddata.is_fixed==""||senddata.is_fixed=="" 
+          || senddata.is_occupied==""||senddata.is_occupied==""
+          || senddata.park_id==""||senddata.park_id==""){
+          alert("字段不能为空！")
+          return;
+        }
+
+        if(senddata.is_fixed!="true"&&senddata.is_fixed!="false" && senddata.is_occupied!="true"&&senddata.is_occupied!="false"){
+          alert("is_fixed & is_occupied 应为 true/false ！")
+          return;
+        }
+
+        
         console.log('senddata',senddata);
         let sd={
           where:{park_id:senddata.park_id},
@@ -178,12 +164,10 @@ export default {
         }
 
         if(this.n===true) 
-          {
-            // console.log('wu');
-            parkadd(senddata)
-            }
-
-
+        {
+          // console.log('wu');
+          parkadd(senddata)
+        }
 
         if (target && targetCache) {
           // 删除editable属性
@@ -238,6 +222,7 @@ export default {
             is_occupied: '',
             park_id: '',
         })
+        this.k++;
         // this.edit(this.k)
       },
     }

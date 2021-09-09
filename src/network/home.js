@@ -47,10 +47,11 @@ export function caradd(data) {
 }
 
 
-export function parkfind() {
+export function parkfind(data) {
     return request({
         url: '/parking/find',
-        method: 'POST'
+        method: 'POST',
+        data: data
     })
 }
 export function parksend(data) {
@@ -107,16 +108,6 @@ export function logleave(data) {
     })
 }
 
-
-
-
-
-
-
-
-
-
-
 export function send(data) {
     // return axios.post('http://120.79.157.47:8888/admin', {
     //     data: {
@@ -133,13 +124,3 @@ export function send(data) {
         data: data
     })
 }
-
-// export function getHomeGoods(type, page) {
-//     return request({
-//         url: '/home/data',
-//         params: {
-//             type,
-//             page
-//         }
-//     })
-// }

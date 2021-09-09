@@ -62,20 +62,17 @@ export default {
       data1:[],
       data2:[],
       deadline: 0,
-      time:true
+      time:true,
+      reg: new RegExp("([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})")
     }
   },
   created(){
-    parkfind().then(res=>{
-        let ju=[...res];
-        console.log('ju',ju.length);
-        for (let item of ju) {
-            if(item.is_fixed)
-                {this.zhuan++}
-            else
-                {this.pu++}
-            }
-        })
+    parkfind({is_fixed: true, is_occupied: false}).then(res=>{
+      this.zhuan = res.length;
+    })
+    parkfind({is_fixed: false, is_occupied: false}).then(res=>{
+      this.pu = res.length;
+    })
   },
   updated(){
     this.pai=document.getElementById('pai').value;
@@ -89,11 +86,16 @@ export default {
       // this.zhuan-=1
       // this.pu-=1
       this.pai=document.getElementById('pai').value;
-      logenter({id_num:this.pai}).then(res => {
+      if(this.reg.test(this.pai)){
+        logenter({id_num:this.pai}).then(res => {
             console.log('res', res);
         }).catch(err => {
             console.log('err')
         })
+      }else{
+        alert("车牌号格式错误！");
+      }
+      document.getElementById('pai').value="";
     },
     chuClick(){
       // alert('jin')
@@ -104,7 +106,17 @@ export default {
       this.pai=document.getElementById('pai').value;
       logleave({id_num:this.pai}).then(res => {
             console.log('res', res.bill);
-            alert('请在5分钟之内缴费'+res.bill+'元')
+
+            res.bill/=1000;
+
+            let expense;
+            if(res.bill <= 30*60){
+              expense = 1;
+            }else{
+              expense = parseInt((res.bill/60-30)/60+2);
+            }
+
+            alert('请在5分钟之内缴费'+expense+'元')
             this.deadline=Date.now()+10000 * 30;
 
             this.time=false
@@ -112,6 +124,7 @@ export default {
         }).catch(err => {
             console.log('err')
         })
+      document.getElementById('pai').value="";
       
     },
     btnClick(){

@@ -44,13 +44,6 @@
     </a-table>
 
 
-
-
-
-
-
-
-
   </div>
 </template>
 
@@ -69,44 +62,11 @@ export default {
             data:[],
             columns,
             editingKey: '',
-            // shuju:[
-            //   {
-            //     key: '1',
-            //     id_num: '陕A10086',
-            //     name: '蓝猫',
-            //     tel: 110,
-            //     apartment: '陕西',
-                
-            //   },
-            //   {
-            //     key: '2',
-            //     id_num: '陕B10085',
-            //     name: '红兔',
-            //     tel: 110,
-            //     apartment: '陕西',
-                
-            //   },
-            //   {
-            //     key: '3',
-            //     id_num: '陕B10084',
-            //     name: '扈三娘',
-            //     tel: 110,
-            //     apartment: '陕西',
-                
-            //   },
-            //   {
-            //     key: '4',
-            //     id_num: '陕B10083',
-            //     name: '张作霖',
-            //     tel: 110,
-            //     apartment: '张府',
-                
-            //   },
-            // ],
             ju:[],
             k:0,
             num:'',
-            n:false
+            n:false,
+            reg: new RegExp("([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})")
         }
         
     },
@@ -133,36 +93,7 @@ export default {
   })
       
     },
-    updated(){
-      // console.log("updated");
-      // console.log(this.data);
-      // console.log(this.cacheData);
-    },
     methods:{
-        // edit(index){
-        //     // console.log(index);
-        //     this.shuju[index].tel+=100
-        // },
-        // del(index){
-        //     // console.log(index);
-        //     this.shuju[index].tel-=100
-        // },
-        // btn1(index,newzhi){
-        //   // alert(index+newzhi)
-        //   this.shuju[index].id_num=newzhi
-        // },
-        // btn2(index,newzhi){
-        //   // alert(index+newzhi)
-        //   this.shuju[index].name=newzhi
-        // },
-        // btn3(index,newzhi){
-        //   // alert(index+newzhi)
-        //   this.shuju[index].tel=newzhi
-        // },
-        // btn4(index,newzhi){
-        //   // alert(index+newzhi)
-        //   this.shuju[index].apartment=newzhi
-        // },
         handleChange(value, key, column) {
         const newData = [...this.data];
         const target = newData.filter(item => key === item.key)[0];
@@ -200,15 +131,6 @@ export default {
         const newCacheData = [...this.cacheData];
         const target = newData.filter(item => key === item.key)[0];
         const targetCache = newCacheData.filter(item => key === item.key)[0];
-        // console.log("this.cacheData",this.cacheData);
-        // console.log("this.data",this.data);
-        // console.log("newData",newData);
-        // console.log('newCacheData',newCacheData);
-        // console.log('target',target);
-        // console.log('targetCache',targetCache);
-        // console.log(key);
-        // console.log('senddata',senddata);
-
         let senddata={};
         senddata.id_num=target.id_num
         senddata.apartment=target.apartment;
@@ -220,13 +142,23 @@ export default {
           newFields:senddata
         }
 
+        let isEmpty = senddata.id_num=="" || senddata.apartment == "" || senddata.name =="" || senddata.tel == "";
+        if(isEmpty){
+          alert("有字段为空！");
+          return
+        }
+
+        if(!this.reg.test(senddata.id_num)){
+          alert("车牌号格式错误！");
+          return
+        }
+
+
         if(this.n===true) 
-          {
-            // console.log('wu');
-            caradd(senddata)
-            }
-
-
+        {
+          // console.log('wu');
+          caradd(senddata)
+        }
 
         if (target && targetCache) {
           // 删除editable属性
@@ -281,6 +213,7 @@ export default {
             tel: '',
             apartment: '',
         })
+        this.k++;
         // this.edit(this.k)
       },
     }
