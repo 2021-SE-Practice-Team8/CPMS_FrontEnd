@@ -58,14 +58,17 @@ export default {
             data.password=values.password
             console.log(data)
             login(data).then(res=>{
-              if(res.message=="Login OK!"){
+              if(res.message==="Login OK!"){
                 this.$bus.$emit('open')
                 this.$bus.$emit("login_dis")
                 this.$router.replace("/simulation")
-              }else{
-                alert("Login Error")
+                alert("登陆成功！")
               }
-            })
+            }).catch(
+              err=>{
+                alert("账号或密码错误！")
+              }
+            )
             }
         });
         },

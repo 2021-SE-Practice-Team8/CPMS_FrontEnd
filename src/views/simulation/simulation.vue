@@ -83,14 +83,19 @@ export default {
     },
     jinClick(){
       // alert('jin');
-      // this.zhuan-=1
-      // this.pu-=1
       this.pai=document.getElementById('pai').value;
       if(this.reg.test(this.pai)){
         logenter({id_num:this.pai}).then(res => {
-            console.log('res', res);
+            
+            if(res===undefined){
+              alert("停车出错！")
+            }else{
+              console.log('res', res);
+              alert("停车成功！")
+            }
         }).catch(err => {
             console.log('err')
+            alert("停车出错！")
         })
       }else{
         alert("车牌号格式错误！");
@@ -106,6 +111,11 @@ export default {
       this.pai=document.getElementById('pai').value;
       logleave({id_num:this.pai}).then(res => {
             console.log('res', res.bill);
+
+            if(res===undefined){
+              alert("出库出错！请检测该车是否在库！")
+              return;
+            }
 
             res.bill/=1000;
 
@@ -123,6 +133,7 @@ export default {
 
         }).catch(err => {
             console.log('err')
+            alert("出库出错！请检测该车是否在库！")
         })
       document.getElementById('pai').value="";
       

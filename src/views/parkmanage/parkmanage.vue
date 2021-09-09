@@ -143,15 +143,16 @@ export default {
         senddata.is_fixed=target.is_fixed;
         senddata.is_occupied=target.is_occupied;
         senddata.park_id=target.park_id;
-
-        if(senddata.is_fixed==""||senddata.is_fixed=="" 
-          || senddata.is_occupied==""||senddata.is_occupied==""
-          || senddata.park_id==""||senddata.park_id==""){
+        console.log(typeof(senddata.is_occupied))
+        if(senddata.is_fixed===""
+          || senddata.is_occupied===""
+          || senddata.park_id===""){
           alert("字段不能为空！")
           return;
         }
 
-        if(senddata.is_fixed!="true"&&senddata.is_fixed!="false" && senddata.is_occupied!="true"&&senddata.is_occupied!="false"){
+        if(senddata.is_fixed.toString()!=="true"&&senddata.is_fixed.toString()!=="false" 
+          && senddata.is_occupied.toString()!=="true"&&senddata.is_occupied.toString()!=="false"){
           alert("is_fixed & is_occupied 应为 true/false ！")
           return;
         }

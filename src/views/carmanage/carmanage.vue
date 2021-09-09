@@ -66,7 +66,8 @@ export default {
             k:0,
             num:'',
             n:false,
-            reg: new RegExp("([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})")
+            carReg: new RegExp("([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})"),
+            telReg: new RegExp("(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}")
         }
         
     },
@@ -148,19 +149,25 @@ export default {
           return
         }
 
-        if(!this.reg.test(senddata.id_num)){
+        if(!this.carReg.test(senddata.id_num)){
           alert("车牌号格式错误！");
           return
         }
-
+        if(!this.telReg.test(senddata.tel)){
+          alert("手机号格式错误！");
+          return
+        }
 
         if(this.n===true) 
         {
           // console.log('wu');
           caradd(senddata)
+          delete target.editable;
+          this.data = newData;
+          Object.assign(targetCache, target);
+          this.cacheData = newCacheData;
         }
-
-        if (target && targetCache) {
+        else if( target && targetCache) {
           // 删除editable属性
           delete target.editable;
           this.data = newData;
