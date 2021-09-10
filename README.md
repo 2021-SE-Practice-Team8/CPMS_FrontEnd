@@ -20,4 +20,4 @@ npm run build
 ### 管理员账户密码
 
 - username：admin
-- username：admin
+- password：admin

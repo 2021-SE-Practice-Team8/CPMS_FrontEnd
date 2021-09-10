@@ -231,32 +231,32 @@ export default {
 
   const columns = [
     {
-      title: 'park_id',
+      title: '车位编号',
       dataIndex: 'park_id',
       width: '40%',
       scopedSlots: { customRender: 'park_id' },
     },
     {
-      title: 'id_num',
+      title: '车牌号',
       dataIndex: 'id_num',
       width: '25%',
       scopedSlots: { customRender: 'id_num' },
     },
     {
-      title: 'is_fixed',
+      title: '是否为专用车位',
       dataIndex: 'is_fixed',
       width: '15%',
       scopedSlots: { customRender: 'is_fixed' },
     },
     {
-      title: 'is_occupied',
+      title: '是否被占用',
       dataIndex: 'is_occupied',
       width: '40%',
       scopedSlots: { customRender: 'is_occupied' },
     },
     
     {
-      title: 'operation',
+      title: '操作',
       dataIndex: 'operation',
       scopedSlots: { customRender: 'operation' },
     },

@@ -25,17 +25,17 @@ export default {
     data() {
         const columns = [
         {
-            title: 'id_num',
+            title: '车牌号',
             dataIndex: 'id_num',
             customRender: renderContent
         },
         {
-            title: 'time_in',
+            title: '入库时间',
             dataIndex: 'time_in',
             customRender: renderContent
         },
         {
-            title: 'time_out',
+            title: '出库时间',
             dataIndex: 'time_out',
             customRender: renderContent,
         },

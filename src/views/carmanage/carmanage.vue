@@ -228,31 +228,31 @@ export default {
 
   const columns = [
     {
-      title: 'id_num',
+      title: '车牌号',
       dataIndex: 'id_num',
       width: '25%',
       scopedSlots: { customRender: 'id_num' },
     },
     {
-      title: 'name',
+      title: '车主',
       dataIndex: 'name',
       width: '15%',
       scopedSlots: { customRender: 'name' },
     },
     {
-      title: 'tel',
+      title: '车主电话',
       dataIndex: 'tel',
       width: '40%',
       scopedSlots: { customRender: 'tel' },
     },
     {
-      title: 'apartment',
+      title: '所属部门',
       dataIndex: 'apartment',
       width: '40%',
       scopedSlots: { customRender: 'apartment' },
     },
     {
-      title: 'operation',
+      title: '操作',
       dataIndex: 'operation',
       scopedSlots: { customRender: 'operation' },
     },
